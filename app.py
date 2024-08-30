@@ -9,7 +9,7 @@ def get_db_connection():
         host="localhost",      # XAMPP MySQL host
         user="root",           # Default MySQL user
         password="",           # Default MySQL password (empty)
-        database="maintenance_web_service"    # Your database name
+        database="payment_web_service"    # Your database name
     )
     return connection
 
@@ -35,7 +35,7 @@ class User:
 def get_users():
     conn = get_db_connection()
     cursor = conn.cursor(dictionary=True)
-    cursor.execute("SELECT * FROM users")
+    cursor.execute("SELECT * FROM tests")
     users_data = cursor.fetchall()
     cursor.close()
     conn.close()
