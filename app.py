@@ -35,11 +35,12 @@ class User:
         }
 
 class Payment:
-    def __init__(self, paymentID, transactionID, paymentDateTime, paymentMethod):
+    def __init__(self, paymentID, transactionID, paymentDateTime, paymentMethod, paymentAmount):
         self.paymentID = paymentID
         self.transactionID = transactionID
         self.paymentDateTime = paymentDateTime
         self.paymentMethod = paymentMethod
+        self.paymentAmount = paymentAmount
 
 
 @app.route('/api/validate-payment', methods=['POST'])
@@ -117,18 +118,20 @@ def validate_payment():
             'paymentID': payment_id,
             'transactionID': request.json.get('transactionId'),
             'paymentDateTime': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
-            'paymentMethod': payment_method
+            'paymentMethod': payment_method,
+            'paymentAmount': request.json.get('totalPayment')
         }
 
         insert_query = """
-            INSERT INTO payment (paymentID, transactionID, paymentDateTime, paymentMethod)
-            VALUES (%s, %s, %s, %s)
+            INSERT INTO payment (paymentID, transactionID, paymentDateTime, paymentMethod, paymentAmount)
+            VALUES (%s, %s, %s, %s, %s)
         """
         cursor.execute(insert_query, (
             payment_data['paymentID'],
             payment_data['transactionID'],
             payment_data['paymentDateTime'],
-            payment_data['paymentMethod']
+            payment_data['paymentMethod'],
+            payment_data['paymentAmount']
         ))
         conn.commit()
 
@@ -141,7 +144,8 @@ def validate_payment():
             'paymentID': payment_data['paymentID'],
             'transactionID': payment_data['transactionID'],
             'paymentDateTime': payment_data['paymentDateTime'],
-            'paymentMethod': payment_data['paymentMethod']
+            'paymentMethod': payment_data['paymentMethod'],
+            'paymentAmount': payment_data['paymentAmount']
         })
 
         print("Response JSON:", response_data)  # Log the response for debugging
