@@ -59,7 +59,7 @@ def validate_payment():
         # Initialize response data
         response_data = []
 
-        if payment_method == 'cardPayment':
+        if payment_method == 'Card Payment':
             card_number = payment_details.get('cardNumber')
             cvv = payment_details.get('cvv')
             expiry_date = payment_details.get('expiryDate')
@@ -80,7 +80,7 @@ def validate_payment():
             except ValueError:
                 return jsonify([{"error": "Invalid expiry date format"}]), 400
 
-        elif payment_method == 'fpx':
+        elif payment_method == 'FPX':
             card_holder_name = payment_details.get('cardHolderName')
             password = payment_details.get('fpxpassword')
 
@@ -88,7 +88,7 @@ def validate_payment():
             if not card_holder_name or not password:
                 return jsonify([{"error": "Missing FPX payment details"}]), 400
 
-        elif payment_method == 'tng':
+        elif payment_method == 'TNG E-Wallet':
             name = payment_details.get('name')
             password = payment_details.get('tngpassword')
 
