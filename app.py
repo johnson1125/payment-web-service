@@ -151,9 +151,16 @@ def validate_payment():
 
 @app.route('/api/get-payments', methods=['GET'])
 def get_payments():
+    # Retrieve optional query parameters with defaults
+    transactionID = request.args.get('transactionID', default=None)
+
     conn = get_db_connection()
     cursor = conn.cursor(dictionary=True)
-    cursor.execute("SELECT * FROM payment")
+    if (transactionID == None):
+        cursor.execute("SELECT * FROM payment")
+    if (transactionID != None):
+        cursor.execute("SELECT * FROM payment WHERE transactionID = %s", (transactionID,))
+
     payments_data = cursor.fetchall()
     cursor.close()
     conn.close()
