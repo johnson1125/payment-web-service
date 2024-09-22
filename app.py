@@ -172,9 +172,9 @@ def get_payments():
         payment_obj = Payment(
             paymentID=payment['paymentID'],
             transactionID=payment['transactionID'],
-            paymentDateTime=payment['paymentDateTime'],
+            paymentDateTime= payment['paymentDateTime'].strftime("%d %b %Y %H:%M:%S"),
             paymentMethod=payment['paymentMethod'],
-            paymentAmount=payment['paymentAmount'],
+            paymentAmount=format(payment['paymentAmount'], ".2f"),
         )
         payments.append(payment_obj.to_dict())
 
