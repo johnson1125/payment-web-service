@@ -1,4 +1,4 @@
- Payment Web Service (Python)
+# Payment Web Service (Python)
 
 ## Prerequisites
 
@@ -32,3 +32,9 @@
 
 5. **Running the Service**  
 * In PyCharm, click the Run button to run the app.py file (top right corner) to start the service.
+
+### **Common Issues** 
+
+1. **Database Connection Error:** 
+
+* Make sure that xampp, mysql server is turn on
